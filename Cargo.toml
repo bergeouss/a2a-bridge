@@ -1,0 +1,25 @@
+[package]
+name = "lifeos-bridge"
+version = "0.1.0"
+edition = "2021"
+description = "A2A bridge for LifeOS (Claude Code wrapper)"
+license = "MIT"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+axum = { version = "0.7", features = ["json"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "0.8"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tower-http = { version = "0.5", features = ["cors", "trace"] }
+tokio-stream = "0.1"
+futures = "0.3"
+uuid = { version = "1", features = ["v4"] }
+constant_time_eq = "0.3"
+
+[profile.release]
+opt-level = 3
+lto = true
+strip = true

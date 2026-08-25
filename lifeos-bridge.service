@@ -1,0 +1,17 @@
+# OPTIONAL: systemd service for persistent bridge
+# Not recommended for on-demand usage.
+# Use: launch manually, shutdown when done.
+
+[Unit]
+Description=A2A Bridge (multi-agent A2A server)
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/a2a-bridge --config /etc/a2a-bridge/agents.toml --agent claude
+Restart=on-failure
+RestartSec=5
+Environment=RUST_LOG=info
+
+[Install]
+WantedBy=multi-user.target

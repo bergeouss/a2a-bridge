@@ -1,0 +1,56 @@
+# A2A Bridge Configuration
+# Copy to agents.toml and customize
+
+[server]
+host = "0.0.0.0"
+port = 8742
+auth_token = "change-me-to-a-secure-token"
+
+# Metadata publique du bridge
+[agent]
+name = "A2A Bridge"
+description = "Universal A2A bridge to AI coding agents"
+version = "0.1.0"
+
+# ============================================================
+# Définition des agents disponibles
+# L'utilisateur en sélectionne un au lancement : --agent <name>
+# ============================================================
+
+[agents.claude]
+command = "claude"
+args = [
+    "--input-format", "stream-json",
+    "--output-format", "stream-json",
+]
+description = "Claude Code direct (Anthropic)"
+timeout = 600
+keep_alive = true
+
+[agents.lifeos]
+command = "$HOME/.bun/bin/bun"
+args = [
+    "$HOME/.claude/LIFEOS/TOOLS/lifeos.ts",
+    "-s",
+    "$HOME/.claude/LIFEOS/LIFEOS_SYSTEM_PROMPT.md",
+]
+description = "LifeOS wrapper (Claude Code augmenté avec skills, hooks, agents)"
+timeout = 600
+keep_alive = true
+
+[agents.codex]
+command = "codex"
+args = ["exec", "--full-auto"]
+description = "OpenAI Codex CLI"
+timeout = 600
+keep_alive = false
+
+# Ajoute tes propres agents ici :
+# [agents.mon-custom]
+# command = "/path/to/mon/agent"
+# args = ["--flag"]
+# description = "Mon agent custom"
+# timeout = 300
+# keep_alive = true
+# workdir = "$HOME/projects/my-project"
+# env = { "MY_VAR" = "value" }
